@@ -79,36 +79,57 @@ class Country {
   /// Calculates tax for a given annual salary
   TaxResult calculateTax(double annualSalary) {
     final salary = Decimal.parse(annualSalary.toString());
-    var remainingIncome = salary;
     var totalTax = Decimal.zero;
-    final taxBreakdown = <String, double>{};
+    final taxBreakdown = <String, double>{
+      'personalAllowance': 0.0,
+      'basicRate': 0.0,
+      'higherRate': 0.0,
+      'additionalRate': 0.0,
+    };
 
+    // Calculate tax for each bracket
     for (int i = 0; i < taxBrackets.length; i++) {
       final bracket = taxBrackets[i];
       final threshold = Decimal.parse(bracket.threshold.toString());
       final rate = Decimal.parse(bracket.rate.toString());
 
-      if (remainingIncome <= Decimal.zero) break;
+      // Get the previous threshold (or 0 for the first bracket)
+      final previousThreshold = i > 0
+          ? Decimal.parse(taxBrackets[i - 1].threshold.toString())
+          : Decimal.zero;
 
-      final taxableInBracket = remainingIncome > threshold
-          ? threshold - (i > 0 ? Decimal.parse(taxBrackets[i - 1].threshold.toString()) : Decimal.zero)
-          : remainingIncome;
+      // Calculate taxable amount in this bracket
+      Decimal taxableInBracket;
+      if (salary <= previousThreshold) {
+        taxableInBracket = Decimal.zero;
+      } else if (salary >= threshold) {
+        taxableInBracket = threshold - previousThreshold;
+      } else {
+        taxableInBracket = salary - previousThreshold;
+      }
 
-      final taxForBracket = taxableInBracket * rate;
-      totalTax += taxForBracket;
+      // Calculate and store tax for this bracket
+      if (taxableInBracket > Decimal.zero) {
+        final taxForBracket = taxableInBracket * rate;
+        totalTax += taxForBracket;
 
-      // Store tax breakdown
-      final bandName = i == 0 ? 'personalAllowance' :
-                      i == 1 ? 'basicRate' :
-                      i == 2 ? 'higherRate' : 'additionalRate';
-      taxBreakdown[bandName] = taxForBracket.toDouble();
-
-      remainingIncome -= taxableInBracket;
+        // Store tax breakdown
+        final bandName = i == 0
+            ? 'personalAllowance'
+            : i == 1
+                ? 'basicRate'
+                : i == 2
+                    ? 'higherRate'
+                    : 'additionalRate';
+        taxBreakdown[bandName] = taxForBracket.toDouble();
+      }
     }
 
     return TaxResult(
       annualSalary: annualSalary,
-      taxableIncome: (salary - Decimal.parse(taxBrackets[0].threshold.toString())).toDouble(),
+      taxableIncome:
+          (salary - Decimal.parse(taxBrackets[0].threshold.toString()))
+              .toDouble(),
       totalTax: totalTax.toDouble(),
       netIncome: (salary - totalTax).toDouble(),
       taxBreakdown: taxBreakdown,

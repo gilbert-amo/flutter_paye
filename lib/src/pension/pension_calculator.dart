@@ -24,4 +24,4 @@ class PensionCalculator {
       totalContribution: employeeContribution + employerContribution,
     );
   }
-} 
+}

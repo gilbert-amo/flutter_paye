@@ -28,4 +28,4 @@ class PensionResult {
     required this.employerContribution,
     required this.totalContribution,
   });
-} 
+}
