@@ -22,5 +22,6 @@ double calculatePieceRate(Employee e) {
 }
 
 void addPieceRate(Employee e, String item, double rate, double quantity) {
-  e.pieceRate.add(PieceRateAggregation(item: item, rate: rate, quantity: quantity));
+  e.pieceRate
+      .add(PieceRateAggregation(item: item, rate: rate, quantity: quantity));
 }

@@ -8,7 +8,7 @@ void main() {
     setUp(() {
       // Set up UK tax brackets for testing
       final taxBrackets = [
-        TaxBracket(threshold: 12570, rate: 0.0),  // Personal Allowance
+        TaxBracket(threshold: 12570, rate: 0.0), // Personal Allowance
         TaxBracket(threshold: 50270, rate: 0.20), // Basic Rate
         TaxBracket(threshold: 125140, rate: 0.40), // Higher Rate
         TaxBracket(threshold: 999999, rate: 0.45), // Additional Rate
@@ -49,11 +49,13 @@ void main() {
     });
 
     test('validates minimum wage', () {
-      expect(() => Country(
-        name: 'Test',
-        minimumWage: -1,
-        taxBrackets: [],
-      ), throwsArgumentError);
+      expect(
+          () => Country(
+                name: 'Test',
+                minimumWage: -1,
+                taxBrackets: [],
+              ),
+          throwsArgumentError);
     });
 
     test('validates tax brackets are in ascending order', () {
@@ -62,11 +64,13 @@ void main() {
         TaxBracket(threshold: 25000, rate: 0.10),
       ];
 
-      expect(() => Country(
-        name: 'Test',
-        minimumWage: 10.0,
-        taxBrackets: invalidBrackets,
-      ), throwsArgumentError);
+      expect(
+          () => Country(
+                name: 'Test',
+                minimumWage: 10.0,
+                taxBrackets: invalidBrackets,
+              ),
+          throwsArgumentError);
     });
   });
 }

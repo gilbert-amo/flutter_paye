@@ -37,7 +37,8 @@ class PayE {
     final payrollResult = _payrollCalculator.calculate();
 
     // Calculate pension contributions
-    final pensionResult = _pensionCalculator.calculate(payrollResult.totalEarnings);
+    final pensionResult =
+        _pensionCalculator.calculate(payrollResult.totalEarnings);
 
     // Return updated result with pension calculations
     return PayrollResult(
@@ -49,7 +50,8 @@ class PayE {
         totalContribution: pensionResult.totalContribution,
       ),
       pieceRateEarnings: payrollResult.pieceRateEarnings,
-      totalEarnings: payrollResult.totalEarnings - pensionResult.employeeContribution,
+      totalEarnings:
+          payrollResult.totalEarnings - pensionResult.employeeContribution,
     );
   }
 }

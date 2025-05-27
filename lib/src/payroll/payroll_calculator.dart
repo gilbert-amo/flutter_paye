@@ -20,9 +20,8 @@ class PayrollCalculator {
     final pieceRateEarnings = _calculatePieceRateEarnings();
 
     // Calculate total earnings including allowances
-    final totalEarnings = taxResult.netIncome + 
-                         pieceRateEarnings + 
-                         employee.allowance;
+    final totalEarnings =
+        taxResult.netIncome + pieceRateEarnings + employee.allowance;
 
     return PayrollResult(
       employee: employee,
@@ -44,4 +43,4 @@ class PayrollCalculator {
       (sum, piece) => sum + (piece.rate * piece.quantity),
     );
   }
-} 
+}
