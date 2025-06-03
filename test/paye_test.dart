@@ -53,7 +53,8 @@ void main() {
           () => Country(
                 name: 'Test',
                 minimumWage: -1,
-                taxBrackets: [], currencyCode: 'GBP',
+                taxBrackets: [],
+                currencyCode: 'GBP',
               ),
           throwsArgumentError);
     });
@@ -68,7 +69,8 @@ void main() {
           () => Country(
                 name: 'Test',
                 minimumWage: 10.0,
-                taxBrackets: invalidBrackets, currencyCode: 'GBP',
+                taxBrackets: invalidBrackets,
+                currencyCode: 'GBP',
               ),
           throwsArgumentError);
     });

@@ -60,12 +60,11 @@ class Country {
   final List<TaxBracket> taxBrackets;
   final String currencyCode;
 
-  Country({
-    required this.name,
-    required this.minimumWage,
-    required this.taxBrackets,
-    required this.currencyCode
-  }) {
+  Country(
+      {required this.name,
+      required this.minimumWage,
+      required this.taxBrackets,
+      required this.currencyCode}) {
     if (minimumWage < 0) {
       throw ArgumentError('Minimum wage cannot be negative');
     }

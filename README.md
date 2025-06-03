@@ -41,6 +41,7 @@ void main() {
     name: 'United Kingdom',
     minimumWage: 10.42,
     taxBrackets: taxBrackets,
+    currencyCode: 'GBP'
   );
 
   // Create an employee
