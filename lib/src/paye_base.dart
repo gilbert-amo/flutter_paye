@@ -13,7 +13,7 @@ void main() {
   final ukCountry = Country(
     name: 'United Kingdom',
     minimumWage: 10.42,
-    taxBrackets: taxBrackets,
+    taxBrackets: taxBrackets, currencyCode: 'GBP',
   );
 
   // Create employee
