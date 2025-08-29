@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'types.dart';
 import 'pension.dart';
 
@@ -113,6 +112,8 @@ class PayrollCalculator {
         break;
       }
 
+      // Round tax amount to 2 decimal places before adding to total
+      taxAmount = double.parse(taxAmount.toStringAsFixed(2));
       totalTax += taxAmount;
 
       // Record this calculation step
@@ -138,6 +139,8 @@ class PayrollCalculator {
       }
     }
 
+    // Round the final total tax to 2 decimal places
+    totalTax = double.parse(totalTax.toStringAsFixed(2));
     return (totalTax, steps);
   }
 
@@ -170,7 +173,9 @@ Average Tax Rate: ${averageRate.toStringAsFixed(2)}%
 
   /// Calculate total tax from all steps
   static double _calculateTotalTax(List<TaxCalculationStep> steps) {
-    return steps.fold(0.0, (total, step) => total + step.taxAmount);
+    final total = steps.fold(0.0, (total, step) => total + step.taxAmount);
+    // Round the total to 2 decimal places
+    return double.parse(total.toStringAsFixed(2));
   }
 
   /// Calculate average tax rate across all steps
